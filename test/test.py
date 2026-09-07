@@ -5,12 +5,12 @@ from cocotb.triggers import Timer
 async def drive(dut, a, b, op):
     dut.ui_in.value = ((b & 0xF) << 4) | (a & 0xF)
     dut.uio_in.value = op & 0x7
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
     return int(dut.uo_out.value)
 
 @cocotb.test()
 async def test_alu(dut):
-    cocotb.start_soon(Clock(dut.clk, 10, units="ns").start())
+    cocotb.start_soon(Clock(dut.clk, 10, unit="ns").start())
     dut.ena.value = 1
     dut.rst_n.value = 1
 
