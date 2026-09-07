@@ -1,0 +1,8 @@
+# Merge this section into the board's existing config.ini after silicon arrives.
+[tt_um_rangfuu_alu]
+mode = ASIC_RP_CONTROL
+clock_frequency = 0
+start_in_reset = no
+ui_in = 0
+uio_oe_pico = 0b00000111
+uio_in = 0

@@ -1,42 +1,45 @@
 import cocotb
-from cocotb.clock import Clock
 from cocotb.triggers import Timer
 
-async def drive(dut, a, b, op):
-    dut.ui_in.value = ((b & 0xF) << 4) | (a & 0xF)
-    dut.uio_in.value = op & 0x7
-    await Timer(1, unit="ns")
-    return int(dut.uo_out.value)
+# Independent oracle: illuminated segments in a,b,c,d,e,f,g order.
+GLYPHS = ("abcdef", "bc", "abdeg", "abcdg", "bcfg", "acdfg",
+          "acdefg", "abc", "abcdefg", "abcdfg", "abcefg", "cdefg",
+          "adef", "bcdeg", "adefg", "aefg")
+
+
+def expected(a, b, op):
+    result = ((a + b) & 15, (a - b) & 15, a & b, a | b, a ^ b,
+              (a << 1) & 15, a >> 1, int(a == b))[op]
+    carry = int(a + b > 15) if op == 0 else int(a < b) if op == 1 else 0
+    segments = sum(1 << (ord(s) - ord("a")) for s in GLYPHS[result])
+    return (carry << 7) | segments, (result << 4) | (int(result == 0) << 3)
+
 
 @cocotb.test()
-async def test_alu(dut):
-    cocotb.start_soon(Clock(dut.clk, 10, unit="ns").start())
+async def test_exhaustive_alu_display(dut):
+    dut.clk.value = 0
     dut.ena.value = 1
     dut.rst_n.value = 1
-
-    y = await drive(dut, 3, 5, 0)
-    assert (y & 0xF) == 8
-
-    y = await drive(dut, 9, 4, 1)
-    assert (y & 0xF) == 5
-
-    y = await drive(dut, 0xA, 0xC, 2)
-    assert (y & 0xF) == 0x8
-
-    y = await drive(dut, 0xA, 0x5, 3)
-    assert (y & 0xF) == 0xF
-
-    y = await drive(dut, 0xA, 0x5, 4)
-    assert (y & 0xF) == 0xF
-
-    y = await drive(dut, 3, 0, 5)
-    assert (y & 0xF) == 6
-
-    y = await drive(dut, 8, 0, 6)
-    assert (y & 0xF) == 4
-
-    y = await drive(dut, 7, 7, 7)
-    assert (y & 0xF) == 1
-
-    y = await drive(dut, 0, 0, 2)
-    assert ((y >> 5) & 1) == 1
+    dut.ui_in.value = 255
+    dut.uio_in.value = 255
+    await Timer(100, unit="ns")
+    for a in range(16):
+        for b in range(16):
+            for op in range(8):
+                dut.ui_in.value = (b << 4) | a
+                dut.uio_in.value = op | (((a + b) & 31) << 3)
+                await Timer(100, unit="ns")
+                uo, uio = expected(a, b, op)
+                context = f"A={a} B={b} op={op}"
+                assert int(dut.uo_out.value) == uo, context
+                assert int(dut.uio_out.value) == uio, context
+                assert int(dut.uio_oe.value) == 0xF8, context
+    # A combinational project does not depend on clock, reset or ena.
+    for clk, reset, ena in ((1, 0, 1), (0, 1, 0), (1, 1, 1)):
+        dut.clk.value = clk
+        dut.rst_n.value = reset
+        dut.ena.value = ena
+        await Timer(100, unit="ns")
+        assert int(dut.uo_out.value) == expected(15, 15, 7)[0]
+        assert int(dut.uio_out.value) == expected(15, 15, 7)[1]
+        assert int(dut.uio_oe.value) == 0xF8
