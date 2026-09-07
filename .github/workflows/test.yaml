@@ -27,7 +27,13 @@ jobs:
           cd test
           make clean
           make
-          ! grep failure results.xml
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+          root = ET.parse('results.xml').getroot()
+          failures = sum(int(ts.attrib.get('failures', 0)) for ts in root.findall('.//testsuite'))
+          errors = sum(int(ts.attrib.get('errors', 0)) for ts in root.findall('.//testsuite'))
+          assert failures == 0 and errors == 0, f'failures={failures}, errors={errors}'
+          PY
 
       - name: Test Summary
         uses: test-summary/action@v2.4
