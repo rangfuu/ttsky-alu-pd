@@ -1,0 +1,140 @@
+
+===========================================================================
+report_checks -unconstrained
+===========================================================================
+======================= max_ss_100C_1v60 Corner ===================================
+
+Startpoint: ui_in[1] (input port clocked by clk)
+Endpoint: uo_out[6] (output port clocked by clk)
+Path Group: clk
+Path Type: max
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                                  0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (propagated)
+                                  4.000000    4.000000 ^ input external delay
+     6    0.033378    0.243694    0.168475    4.168475 ^ ui_in[1] (in)
+                                                         ui_in[1] (net)
+                      0.243713    0.000000    4.168475 ^ _089_/B (sky130_fd_sc_hd__xnor2_2)
+     2    0.005403    0.198015    0.264463    4.432938 ^ _089_/Y (sky130_fd_sc_hd__xnor2_2)
+                                                         _019_ (net)
+                      0.198016    0.000304    4.433242 ^ max_cap22/A (sky130_fd_sc_hd__buf_1)
+     4    0.011379    0.226021    0.315746    4.748988 ^ max_cap22/X (sky130_fd_sc_hd__buf_1)
+                                                         net22 (net)
+                      0.226021    0.000362    4.749350 ^ max_cap21/A (sky130_fd_sc_hd__clkbuf_1)
+     2    0.007173    0.150526    0.272341    5.021691 ^ max_cap21/X (sky130_fd_sc_hd__clkbuf_1)
+                                                         net21 (net)
+                      0.150526    0.000437    5.022128 ^ _110_/A (sky130_fd_sc_hd__or2_2)
+     3    0.013329    0.124941    0.275868    5.297997 ^ _110_/X (sky130_fd_sc_hd__or2_2)
+                                                         _039_ (net)
+                      0.124943    0.000666    5.298663 ^ _121_/A2 (sky130_fd_sc_hd__a21oi_2)
+     2    0.007401    0.096778    0.149139    5.447802 v _121_/Y (sky130_fd_sc_hd__a21oi_2)
+                                                         _049_ (net)
+                      0.096779    0.000667    5.448469 v max_cap20/A (sky130_fd_sc_hd__buf_1)
+     2    0.008970    0.113984    0.225346    5.673816 v max_cap20/X (sky130_fd_sc_hd__buf_1)
+                                                         net20 (net)
+                      0.113984    0.000410    5.674226 v _139_/C (sky130_fd_sc_hd__or3_2)
+     1    0.001953    0.154724    0.957093    6.631319 v _139_/X (sky130_fd_sc_hd__or3_2)
+                                                         _066_ (net)
+                      0.154724    0.000126    6.631444 v _140_/C (sky130_fd_sc_hd__and3_2)
+     1    0.002119    0.068167    0.463023    7.094468 v _140_/X (sky130_fd_sc_hd__and3_2)
+                                                         _067_ (net)
+                      0.068167    0.000140    7.094608 v _144_/B (sky130_fd_sc_hd__or4_2)
+     3    0.015372    0.306653    1.684961    8.779569 v _144_/X (sky130_fd_sc_hd__or4_2)
+                                                         net5 (net)
+                      0.306653    0.001006    8.780575 v fanout14/A (sky130_fd_sc_hd__clkdlybuf4s25_1)
+    10    0.042797    0.574374    0.945216    9.725791 v fanout14/X (sky130_fd_sc_hd__clkdlybuf4s25_1)
+                                                         net14 (net)
+                      0.574390    0.003591    9.729382 v _165_/B (sky130_fd_sc_hd__or3b_2)
+     2    0.006741    0.188562    1.267000   10.996382 v _165_/X (sky130_fd_sc_hd__or3b_2)
+                                                         _005_ (net)
+                      0.188562    0.000265   10.996647 v _173_/A3 (sky130_fd_sc_hd__a31o_2)
+     1    0.002505    0.060913    0.486571   11.483217 v _173_/X (sky130_fd_sc_hd__a31o_2)
+                                                         net12 (net)
+                      0.060913    0.000105   11.483322 v output12/A (sky130_fd_sc_hd__buf_2)
+     1    0.034705    0.168027    0.340939   11.824261 v output12/X (sky130_fd_sc_hd__buf_2)
+                                                         uo_out[6] (net)
+                      0.168048    0.001913   11.826174 v uo_out[6] (out)
+                                             11.826174   data arrival time
+
+                                 20.000000   20.000000   clock clk (rise edge)
+                                  0.000000   20.000000   clock network delay (propagated)
+                                 -0.250000   19.750002   clock uncertainty
+                                  0.000000   19.750002   clock reconvergence pessimism
+                                 -4.000000   15.750001   output external delay
+                                             15.750001   data required time
+---------------------------------------------------------------------------------------------
+                                             15.750001   data required time
+                                            -11.826174   data arrival time
+---------------------------------------------------------------------------------------------
+                                              3.923827   slack (MET)
+
+
+
+
+===========================================================================
+report_checks --slack_max -0.01
+============================================================================
+======================= max_ss_100C_1v60 Corner ===================================
+
+No paths found.
+
+
+===========================================================================
+ report_check_types -max_slew -max_cap -max_fanout -violators
+============================================================================
+======================= max_ss_100C_1v60 Corner ===================================
+
+max slew
+
+Pin                                        Limit        Slew       Slack
+------------------------------------------------------------------------
+_158_/A2                                0.750000    0.762971   -0.012971 (VIOLATED)
+_147_/A                                 0.750000    0.762969   -0.012969 (VIOLATED)
+output4/A                               0.750000    0.762968   -0.012968 (VIOLATED)
+_148_/A                                 0.750000    0.762961   -0.012961 (VIOLATED)
+_159_/C_N                               0.750000    0.762960   -0.012960 (VIOLATED)
+_164_/A_N                               0.750000    0.762959   -0.012959 (VIOLATED)
+_154_/A                                 0.750000    0.762954   -0.012954 (VIOLATED)
+_166_/A                                 0.750000    0.762948   -0.012948 (VIOLATED)
+_133_/A                                 0.750000    0.762947   -0.012948 (VIOLATED)
+_155_/A                                 0.750000    0.762947   -0.012948 (VIOLATED)
+fanout15/X                              0.750000    0.762947   -0.012948 (VIOLATED)
+
+
+
+===========================================================================
+report_parasitic_annotation -report_unannotated
+============================================================================
+Found 19 unannotated drivers.
+ clk
+ ena
+ rst_n
+ uio_in[3]
+ uio_in[4]
+ uio_in[5]
+ uio_in[6]
+ uio_in[7]
+ tt_um_rangfuu_alu/HI
+ tt_um_rangfuu_alu_23/HI
+ tt_um_rangfuu_alu_24/HI
+ tt_um_rangfuu_alu_25/HI
+ tt_um_rangfuu_alu_26/HI
+ tt_um_rangfuu_alu_27/HI
+ tt_um_rangfuu_alu_28/LO
+ tt_um_rangfuu_alu_29/LO
+ tt_um_rangfuu_alu_30/LO
+ tt_um_rangfuu_alu_31/LO
+ tt_um_rangfuu_alu_32/LO
+Found 0 partially unannotated drivers.
+
+===========================================================================
+max slew violation count 11
+max fanout violation count 0
+max cap violation count 0
+============================================================================
+
+===========================================================================
+check_setup -verbose -unconstrained_endpoints -multiple_clock -no_clock -no_input_delay -loops -generated_clocks
+===========================================================================

@@ -1,0 +1,52 @@
+{
+  "RTL": {
+    "exit_code": 0,
+    "vectors": 2048,
+    "test": "cocotb 2.0.0 exhaustive ALU+hex+flags+OE"
+  },
+  "D0_display": {
+    "exit_code": 0,
+    "vectors": 2048,
+    "test": "cocotb 2.0.0 exhaustive ALU+hex+flags+OE"
+  },
+  "D2_display_no_port_buffers": {
+    "exit_code": 0,
+    "vectors": 2048,
+    "test": "cocotb 2.0.0 exhaustive ALU+hex+flags+OE"
+  },
+  "D3_output_buffers": {
+    "exit_code": 0,
+    "vectors": 2048,
+    "test": "cocotb 2.0.0 exhaustive ALU+hex+flags+OE"
+  },
+  "D4_input_off_output_on": {
+    "exit_code": 0,
+    "vectors": 2048,
+    "test": "cocotb 2.0.0 exhaustive ALU+hex+flags+OE"
+  },
+  "D5_slew_margin": {
+    "exit_code": 0,
+    "vectors": 2048,
+    "test": "cocotb 2.0.0 exhaustive ALU+hex+flags+OE"
+  },
+  "D7_slow_corner": {
+    "exit_code": 0,
+    "vectors": 2048,
+    "test": "cocotb 2.0.0 exhaustive ALU+hex+flags+OE"
+  },
+  "D8_no_delay_buffers": {
+    "exit_code": 0,
+    "vectors": 2048,
+    "test": "cocotb 2.0.0 exhaustive ALU+hex+flags+OE"
+  },
+  "D9_post_route_repair": {
+    "exit_code": 0,
+    "vectors": 2048,
+    "test": "cocotb 2.0.0 exhaustive ALU+hex+flags+OE"
+  },
+  "D10_routed_slew_repair": {
+    "exit_code": 0,
+    "vectors": 2048,
+    "test": "cocotb 2.0.0 exhaustive ALU+hex+flags+OE"
+  }
+}

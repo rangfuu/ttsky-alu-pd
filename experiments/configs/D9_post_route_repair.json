@@ -1,5 +1,4 @@
 {
-  "//": "Hex-display ALU: selected physical implementation; see experiments/README.md",
   "PL_TARGET_DENSITY_PCT": 60,
   "CLOCK_PERIOD": 20,
   "PL_RESIZER_HOLD_SLACK_MARGIN": 0.1,
@@ -23,10 +22,15 @@
   "FP_PDN_MULTILAYER": 0,
   "MAGIC_DEF_LABELS": 0,
   "MAGIC_WRITE_LEF_PINONLY": 1,
+  "DESIGN_NAME": "tt_um_rangfuu_alu",
+  "VERILOG_FILES": [
+    "dir::project.v"
+  ],
+  "DIE_AREA": "0 0 161.00 111.52",
+  "FP_DEF_TEMPLATE": "dir::../tt/tech/sky130A/def/tt_block_1x1_pg.def",
+  "VDD_PIN": "VPWR",
+  "GND_PIN": "VGND",
+  "RT_MAX_LAYER": "met4",
   "DESIGN_REPAIR_BUFFER_INPUT_PORTS": false,
-  "RUN_POST_GRT_DESIGN_REPAIR": true,
-  "GRT_DESIGN_REPAIR_MAX_SLEW_PCT": 60,
-  "RSZ_CORNERS": [
-    "max_ss_100C_1v60"
-  ]
+  "RUN_POST_GRT_DESIGN_REPAIR": true
 }

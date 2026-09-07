@@ -1,0 +1,32 @@
+{
+  "D6_slew_margin75": {
+    "status": "terminated_by_operator",
+    "stage": "OpenROAD.RepairDesignPostGPL",
+    "reason": "Repair did not finish within the deadline budget and memory usage increased markedly. No final PPA or signoff result is claimed.",
+    "record": {
+      "command": [
+        "python",
+        "-m",
+        "librelane",
+        "--manual-pdk",
+        "--pdk-root",
+        "/tmp/tt-pd-09ad68d/pdk",
+        "--pdk",
+        "sky130A",
+        "--run-tag",
+        "D6_slew_margin75",
+        "-j",
+        "4",
+        "--condensed",
+        "/tmp/tt-pd-09ad68d/demo/src/D6_slew_margin75.json"
+      ],
+      "exit_code": 1,
+      "seconds": 193.72,
+      "delta": {
+        "DESIGN_REPAIR_BUFFER_INPUT_PORTS": false,
+        "DESIGN_REPAIR_BUFFER_OUTPUT_PORTS": true,
+        "DESIGN_REPAIR_MAX_SLEW_PCT": 75
+      }
+    }
+  }
+}
