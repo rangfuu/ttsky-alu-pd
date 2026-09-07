@@ -34,8 +34,29 @@ jobs:
         with:
           submodules: recursive
 
+      # Patch only the upstream XML success check for cocotb 2.x.
+      - name: Checkout gate-level action
+        uses: actions/checkout@v6
+        with:
+          repository: TinyTapeout/tt-gds-action
+          ref: 85a4c4128c10aa024ea8a02c7b3828d11c14ed90
+          path: .tt-gds-action
+
+      - name: Fix gate-level XML result check
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('.tt-gds-action/gl_test/action.yml')
+          text = p.read_text()
+          old = '! grep failure results.xml'
+          new = """python -c "import xml.etree.ElementTree as E; r=E.parse('results.xml').getroot(); suites=list(r.iter('testsuite')); assert suites and sum(int(s.get('tests', 0)) for s in suites)>0; assert not list(r.iter('failure')) and not list(r.iter('error')); assert all(int(s.get('failures', 0))==0 and int(s.get('errors', 0))==0 for s in suites)" """
+          assert text.count(old) == 1
+          p.write_text(text.replace(old, new.rstrip()))
+          PY
+
       - name: GL test
-        uses: TinyTapeout/tt-gds-action/gl_test@ttsky26c
+        uses: ./.tt-gds-action/gl_test
 
   viewer:
     needs: gds
